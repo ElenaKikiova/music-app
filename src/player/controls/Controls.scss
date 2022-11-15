@@ -1,0 +1,6 @@
+@use '../themes/dark.scss' as theme;
+
+.Controls {
+  width: 100%;
+  background-color: theme.$track-list-background;
+}

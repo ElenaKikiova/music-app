@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Controls from './controls/Controls';
 import { PlayerOptions } from './models/PlayerModels';
 import './Player.scss';
 import TracksList from './tracksList/TracksList';
@@ -10,7 +11,10 @@ function Player(options: PlayerOptions) {
   return (
     <div className="Player" style={{'width': options.width}}>
       <TracksList list={options.tracks} />
-      <Video url={url} />
+      <div className='video-and-controls'>
+        <Video url={url} />
+        <Controls show={options.showControls} />
+      </div>
     </div>
   );
 }

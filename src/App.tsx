@@ -11,6 +11,7 @@ function App() {
     <div className="App">
       <Player 
         width={800}
+        showControls={true}
         tracks={tracks} />
     </div>
   );

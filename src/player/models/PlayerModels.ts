@@ -1,5 +1,6 @@
 export interface PlayerOptions {
   width: number;
+  showControls: boolean;
   tracks: string[];
 }
 
@@ -13,4 +14,7 @@ export interface TracksListOptions {
 
 export interface VideoOptions {
   url: string;
+}
+export interface ControlsOptions {
+  show: boolean;
 }
