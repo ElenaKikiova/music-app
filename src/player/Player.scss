@@ -1,0 +1,9 @@
+@use './themes/dark.scss' as theme;
+
+.Player {
+  display: flex;
+  width: 100%;
+
+  background-color: theme.$background;
+  color: theme.$text-color;
+}
