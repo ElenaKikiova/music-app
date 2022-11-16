@@ -1,23 +1,38 @@
 @use '../themes/dark.scss' as theme;
 
-.Controls {
-  width: 100%;
+
+
+button {
+  background-color: transparent;
+  border: 0px;
+  cursor: pointer;
+  padding: 0.75rem;
+  color: theme.$text-color;
+  font-size: 1.5rem;
+  line-height: 0;
+}
+
+.PlayPause {
+  background-color: transparent;
+  border: 0px;
+  cursor: pointer;
+  padding: 0.75rem;
+  color: theme.$text-color;
+  font-size: 1.5rem;
+  line-height: 0;
+  margin: auto;
+  display: block;
+}
+
+.Progress {
   display: flex;
   margin: 0.5rem;
   align-items: center;
-
-  button {
-    background-color: transparent;
-    border: 0px;
-    cursor: pointer;
-    padding: 0.75rem;
-    color: theme.$text-color;
-    font-size: 1.5rem;
-    line-height: 0;
-  }
 
   .progress-slider{
     flex-grow: 1;
     margin: 0 0.25rem;
   }
+
+
 }
