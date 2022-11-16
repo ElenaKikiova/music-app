@@ -13,24 +13,24 @@ const Controls = (options: ControlsOptions) => {
 
   const [playerState, setPlayerState] = useState({
     isPlaying: false,
-    url: options.url,
+    audio: options.audio,
     currentTime: '',
     duration: ''
   });
 
   useEffect(() => {
-    if(options.url !== playerState.url && audioElement.current){
+    if(options.audio !== playerState.audio && audioElement.current){
       setProgress(0);
       audioElement.current!.load();
       if(playerState.isPlaying) audioElement.current!.play();
       console.log(audioElement.current!.duration);
       setPlayerState((s) => ({
         ...s, 
-        url: options.url,
+        audio: options.audio,
         duration: ''
       }));
     }
-  }, [options, playerState.isPlaying, playerState.url])
+  }, [options, playerState.isPlaying, playerState.audio])
 
   const togglePlayPause = () => {
     if(audioElement.current){
@@ -45,9 +45,8 @@ const Controls = (options: ControlsOptions) => {
   }
 
   const getTime = (time) => {
-    console.log(time);
-    if(isNaN(time)) return ''
-    const stringifiedTime = moment(time, "ss").format((time > 60*60 ? "HH:" : "") + "mm:ss");
+    if(isNaN(time)) return '';
+    const stringifiedTime = moment.utc(time*1000).format((time > 60*60 ? 'HH:' : '') + 'mm:ss')
     return stringifiedTime;
   }
 
@@ -80,14 +79,14 @@ const Controls = (options: ControlsOptions) => {
 
   const changeTrack = (move) => {
     console.log(move, options);
-    options.onChangeTrack(options.url, move);
+    options.onChangeTrack(options.audio, move);
   }
 
   
-  return playerState.url ? (<>
+  return playerState.audio ? (<>
     <audio ref={audioElement} onTimeUpdate={updateProgress}>
-      <source src={playerState.url} type="audio/ogg" />
-      <source src={playerState.url} type="audio/mpeg" />
+      <source src={playerState.audio} type="audio/ogg" />
+      <source src={playerState.audio} type="audio/mpeg" />
     </audio>
     <div className='Actions'>
       <button className="PreviousTrack" onClick={() => changeTrack(-1)}> <BiSkipPrevious /> </button>

@@ -14,7 +14,7 @@ function Player(options: PlayerOptions) {
   });
 
   const getNextOrPreviousTrack = (current, move) => {
-    const index = options.tracks.findIndex((e) => e.url === current) + move;
+    const index = options.tracks.findIndex((e) => e.audio === current) + move;
     if(options.tracks[index]) changeTrack(index);
   }
 
@@ -28,7 +28,7 @@ function Player(options: PlayerOptions) {
     <div className="Player" style={{'width': options.width}}>
       <TracksList list={options.tracks} onChangeTrack={(tIndex) => changeTrack(tIndex)}/>
       <div className='Controls'>
-        <Controls url={playerState.currentTrack.url} onChangeTrack={(current, move) => getNextOrPreviousTrack(current, move)}/>
+        <Controls audio={playerState.currentTrack.audio} onChangeTrack={(current, move) => getNextOrPreviousTrack(current, move)}/>
       </div>
     </div>
   ) : <></>;

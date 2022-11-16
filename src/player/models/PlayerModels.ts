@@ -4,9 +4,13 @@ export interface PlayerOptions {
 }
 
 export interface Track {
-  title: string;
-  url: string;
-  coverUrl?: string;
+  name: string;
+  audio: string;
+  cover: string;
+  artist: string;
+  color: ["#205950", "#2ab3bf"],
+  id: string,
+  active: boolean
 }
 
 export interface TracksListOptions {
@@ -15,7 +19,7 @@ export interface TracksListOptions {
 }
 
 export interface audioOptions {
-  url: string;
+  audio: string;
   playerState: PlayerState;
 }
 
@@ -24,7 +28,7 @@ export interface PlayerState {
   currentTrack: Track | null;
 }
 export interface ControlsOptions {
-  url: string;
+  audio: string;
 
   onChangeTrack: Function
 }
