@@ -9,8 +9,8 @@ const TracksList = ({list, onChangeTrack}: TracksListOptions) => {
     <div className='TracksList'>
       <h2>Tracks</h2>
       <div className="tracks">
-        { list.map((e) => (
-          <div className='track' key={e.url} onClick={() => onChangeTrack(e)}>{e.title}</div>
+        { list.map((e, i) => (
+          <div className='track' key={e.url} onClick={() => onChangeTrack(i)}>{e.title}</div>
         )) }
       </div>
     </div>

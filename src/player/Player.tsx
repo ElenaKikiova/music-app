@@ -13,21 +13,22 @@ function Player(options: PlayerOptions) {
     currentTrack: options.tracks[0]
   });
 
-  const changeTrack = (t) => {
-    setPlayerState((s) => ({...s, isPlaying: false, currentTrack: t}))
+  const getNextOrPreviousTrack = (current, move) => {
+    const index = options.tracks.findIndex((e) => e.url === current) + move;
+    if(options.tracks[index]) changeTrack(index);
+  }
+
+  const changeTrack = (tIndex: number) => {
+    setPlayerState((s) => ({...s, isPlaying: false, currentTrack: options.tracks[tIndex]}))
   }
 
 
-  const stateChanged = (state: any) => {
-  //   console.log('state', state);
-  //   setPlayerState(state);
-  }
 
   return playerState.currentTrack ? (
     <div className="Player" style={{'width': options.width}}>
-      <TracksList list={options.tracks} onChangeTrack={(t) => changeTrack(t)}/>
+      <TracksList list={options.tracks} onChangeTrack={(tIndex) => changeTrack(tIndex)}/>
       <div className='Controls'>
-        <Controls url={playerState.currentTrack.url} onChangeState={stateChanged}/>
+        <Controls url={playerState.currentTrack.url} onChangeTrack={(current, move) => getNextOrPreviousTrack(current, move)}/>
       </div>
     </div>
   ) : <></>;

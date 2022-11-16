@@ -12,17 +12,21 @@ button {
   line-height: 0;
 }
 
-.PlayPause {
-  background-color: transparent;
-  border: 0px;
-  cursor: pointer;
-  padding: 0.75rem;
-  color: theme.$text-color;
-  font-size: 1.5rem;
-  line-height: 0;
-  margin: auto;
-  display: block;
+.Actions {
+  display: flex;
+  justify-content: center;
+  
+  .PlayPause {
+    background-color: transparent;
+    border: 0px;
+    cursor: pointer;
+    padding: 0.75rem;
+    color: theme.$text-color;
+    font-size: 1.5rem;
+    line-height: 0;
+  }
 }
+
 
 .Progress {
   display: flex;

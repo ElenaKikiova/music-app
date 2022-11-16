@@ -1,6 +1,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { BsPause, BsPlay } from 'react-icons/bs';
+import { BiSkipPrevious, BiSkipNext } from 'react-icons/bi';
 import { ControlsOptions } from '../models/PlayerModels';
 import './Controls.scss';
 import moment from 'moment';
@@ -13,7 +14,7 @@ const Controls = (options: ControlsOptions) => {
   const [playerState, setPlayerState] = useState({
     isPlaying: false,
     url: options.url,
-    currentTime: '00:00',
+    currentTime: '',
     duration: ''
   });
 
@@ -41,7 +42,6 @@ const Controls = (options: ControlsOptions) => {
       }
     }
     setPlayerState((s) => ({ ...s, isPlaying: !s.isPlaying}));
-    options.onChangeState(playerState);
   }
 
   const getTime = (time) => {
@@ -77,18 +77,30 @@ const Controls = (options: ControlsOptions) => {
       setProgress(sliderValue);
     }
   }
+
+  const changeTrack = (move) => {
+    console.log(move, options);
+    options.onChangeTrack(options.url, move);
+  }
+
   
   return playerState.url ? (<>
     <audio ref={audioElement} onTimeUpdate={updateProgress}>
       <source src={playerState.url} type="audio/ogg" />
       <source src={playerState.url} type="audio/mpeg" />
     </audio>
-    <button className="PlayPause" onClick={togglePlayPause}> { playerState.isPlaying ? <BsPause /> : <BsPlay />}</button>
+    <div className='Actions'>
+      <button className="PreviousTrack" onClick={() => changeTrack(-1)}> <BiSkipPrevious /> </button>
+      <button className="PlayPause" onClick={togglePlayPause}> { playerState.isPlaying ? <BsPause /> : <BsPlay />}</button>
+      <button className="NextTrack" onClick={() => changeTrack(1)}> <BiSkipNext /> </button>
+    </div>
+
     <div className="Progress">
-      <span className='current-time'>{playerState.currentTime}</span>
+      <span className='current-time'>{playerState.currentTime || '00:00'}</span>
       <progress className='progress-slider' value="0" max="1" ref={progressSlider} onClick={seekAudio} />
       <span className='duration'>{playerState.duration || '00:00'}</span>
     </div>
+
     </>) : <></>
 }
 

@@ -11,7 +11,7 @@ export interface Track {
 
 export interface TracksListOptions {
   list: Track[],
-  onChangeTrack: (track: Track) => void
+  onChangeTrack: (index: number) => void
 }
 
 export interface audioOptions {
@@ -26,7 +26,7 @@ export interface PlayerState {
 export interface ControlsOptions {
   url: string;
 
-  onChangeState: Function
+  onChangeTrack: Function
 }
 
 
