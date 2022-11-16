@@ -6,4 +6,8 @@
 
   background-color: theme.$background;
   color: theme.$text-color;
+
+  .Controls {
+    flex-grow: 1;
+  }
 }

@@ -3,5 +3,19 @@
 .TracksList {
   width: 25%;
   min-width: 120px;
+  padding-bottom: 1rem;
   background-color: theme.$track-list-background;
+
+  h2{
+    margin: 1rem 0 0.5rem 0;
+    padding: 0 1rem;
+  }
+
+  .tracks {
+
+    .track {
+      width: 100%;
+      padding: 0.5rem 1rem;
+    }
+  }
 }

@@ -12,9 +12,17 @@ export interface TracksListOptions {
   list: string[]
 }
 
-export interface VideoOptions {
+export interface audioOptions {
   url: string;
+  playerState: PlayerState;
+}
+
+export interface PlayerState {
+  isPlaying: boolean;
+  isTouched: boolean;
 }
 export interface ControlsOptions {
-  show: boolean;
+  url: string;
+
+  onChangeState: Function
 }
