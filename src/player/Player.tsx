@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { INITIAL_PLAYER_STATE } from './constants';
 import Controls from './controls/Controls';
-import { PlayerOptions } from './models/PlayerModels';
+import { PlayerOptions, Track } from './models/PlayerModels';
 import './Player.scss';
 import TracksList from './tracksList/TracksList';
 
@@ -13,22 +13,23 @@ function Player(options: PlayerOptions) {
     currentTrack: options.tracks[0]
   });
 
-  const getNextOrPreviousTrack = (current, move) => {
-    const index = options.tracks.findIndex((e) => e.audio === current) + move;
-    if(options.tracks[index]) changeTrack(index);
+  const getNextOrPreviousTrack = (currentId, move) => {
+    const index = options.tracks.findIndex((e) => e.id === currentId) + move;
+    if(options.tracks[index]) changeTrack(options.tracks[index].id);
   }
 
-  const changeTrack = (tIndex: number) => {
-    setPlayerState((s) => ({...s, isPlaying: false, currentTrack: options.tracks[tIndex]}))
+  const changeTrack = (id: number) => {
+    const current = options.tracks.find((e) => e.id === id) as Track;
+    console.log(current);
+    setPlayerState((s) => ({...s, isPlaying: false, currentTrack: current }))
   }
-
-
 
   return playerState.currentTrack ? (
     <div className="Player" style={{'width': options.width}}>
-      <TracksList list={options.tracks} onChangeTrack={(tIndex) => changeTrack(tIndex)}/>
+      <TracksList list={options.tracks} currentId={playerState.currentTrack.id} onChangeTrack={(id) => changeTrack(id)}/>
       <div className='Controls'>
-        <Controls audio={playerState.currentTrack.audio} onChangeTrack={(current, move) => getNextOrPreviousTrack(current, move)}/>
+        <h2>{playerState.currentTrack.name}</h2>
+        <Controls track={playerState.currentTrack} onChangeTrack={(current, move) => getNextOrPreviousTrack(current, move)}/>
       </div>
     </div>
   ) : <></>;

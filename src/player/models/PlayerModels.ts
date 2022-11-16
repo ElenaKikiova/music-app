@@ -9,12 +9,13 @@ export interface Track {
   cover: string;
   artist: string;
   color: ["#205950", "#2ab3bf"],
-  id: string,
+  id: any,
   active: boolean
 }
 
 export interface TracksListOptions {
   list: Track[],
+  currentId: number,
   onChangeTrack: (index: number) => void
 }
 
@@ -28,7 +29,7 @@ export interface PlayerState {
   currentTrack: Track | null;
 }
 export interface ControlsOptions {
-  audio: string;
+  track: Track;
 
   onChangeTrack: Function
 }

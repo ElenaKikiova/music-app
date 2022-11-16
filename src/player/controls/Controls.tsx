@@ -13,24 +13,24 @@ const Controls = (options: ControlsOptions) => {
 
   const [playerState, setPlayerState] = useState({
     isPlaying: false,
-    audio: options.audio,
+    track: options.track,
     currentTime: '',
     duration: ''
   });
 
   useEffect(() => {
-    if(options.audio !== playerState.audio && audioElement.current){
+    if(options.track.id !== playerState.track.id && audioElement.current){
       setProgress(0);
       audioElement.current!.load();
       if(playerState.isPlaying) audioElement.current!.play();
       console.log(audioElement.current!.duration);
       setPlayerState((s) => ({
         ...s, 
-        audio: options.audio,
+        track: options.track,
         duration: ''
       }));
     }
-  }, [options, playerState.isPlaying, playerState.audio])
+  }, [options, playerState.isPlaying, playerState.track])
 
   const togglePlayPause = () => {
     if(audioElement.current){
@@ -79,14 +79,14 @@ const Controls = (options: ControlsOptions) => {
 
   const changeTrack = (move) => {
     console.log(move, options);
-    options.onChangeTrack(options.audio, move);
+    options.onChangeTrack(playerState.track.id, move);
   }
 
   
-  return playerState.audio ? (<>
+  return playerState.track ? (<>
     <audio ref={audioElement} onTimeUpdate={updateProgress}>
-      <source src={playerState.audio} type="audio/ogg" />
-      <source src={playerState.audio} type="audio/mpeg" />
+      <source src={playerState.track.audio} type="audio/ogg" />
+      <source src={playerState.track.audio} type="audio/mpeg" />
     </audio>
     <div className='Actions'>
       <button className="PreviousTrack" onClick={() => changeTrack(-1)}> <BiSkipPrevious /> </button>
