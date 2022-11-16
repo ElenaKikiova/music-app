@@ -1,15 +1,17 @@
 export interface PlayerOptions {
   width: number;
-  showControls: boolean;
-  tracks: string[];
+  tracks: Track[];
 }
 
 export interface Track {
-
+  title: string;
+  url: string;
+  coverUrl?: string;
 }
 
 export interface TracksListOptions {
-  list: string[]
+  list: Track[],
+  onChangeTrack: (track: Track) => void
 }
 
 export interface audioOptions {
@@ -19,10 +21,16 @@ export interface audioOptions {
 
 export interface PlayerState {
   isPlaying: boolean;
-  isTouched: boolean;
+  currentTrack: Track | null;
 }
 export interface ControlsOptions {
   url: string;
 
   onChangeState: Function
+}
+
+
+export interface ControlsState {
+  isPlaying: boolean;
+  currentTrack: Track;
 }
