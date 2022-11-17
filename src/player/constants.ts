@@ -7,5 +7,8 @@ export const INITIAL_PLAYER_STATE: PlayerState = {
   isPlaying: false,
   theme: THEMES.DARK,
   currentTrack: null,
-  repeat: REPEAT.NEXT
+  volume: 0.75,
+  repeat: REPEAT.NEXT,
+  currentTime: '',
+  duration: ''
 }

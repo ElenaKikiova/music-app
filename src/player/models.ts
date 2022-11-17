@@ -29,6 +29,9 @@ export interface PlayerState {
   theme: string;
   currentTrack: Track | null;
   repeat: string;
+  volume: number;
+  currentTime: string;
+  duration: string;
 }
 export interface ControlsOptions {
   track: Track;

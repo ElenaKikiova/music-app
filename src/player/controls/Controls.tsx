@@ -5,7 +5,7 @@ import { BiSkipPrevious, BiSkipNext } from 'react-icons/bi';
 import { ControlsOptions } from '../models';
 import './Controls.scss';
 import moment from 'moment';
-import { REPEAT } from '../constants';
+import { INITIAL_PLAYER_STATE, REPEAT } from '../constants';
 
 const Controls = (options: ControlsOptions) => {
 
@@ -13,10 +13,8 @@ const Controls = (options: ControlsOptions) => {
   const progressSlider = useRef<any>(null);
 
   const [playerState, setPlayerState] = useState({
-    isPlaying: false,
+    ...INITIAL_PLAYER_STATE,
     track: options.track,
-    currentTime: '',
-    duration: ''
   });
 
   // change track info whenever another track is chosen
@@ -86,12 +84,14 @@ const Controls = (options: ControlsOptions) => {
       else {
         // audio seek occured because user clicked on slider
 
-        // calculate slider X positon by summing slider's X position inside parent element from slider's parent X position
-        const sliderOffsetLeft = progressSlider.current.offsetParent.offsetLeft + progressSlider.current.offsetLeft;
+        // get slider X positon
+        const sliderOffsetLeft = progressSlider.current.getBoundingClientRect().x;
         // calculate click position inside slider
         const fromBegining = e.clientX - sliderOffsetLeft;
         // get slider value (0, 1)
         const sliderValue = fromBegining / progressSlider.current.clientWidth;
+
+        console.log(sliderOffsetLeft, e.clientX, fromBegining, progressSlider.current.offsetLeft, sliderValue)
 
         setProgress(sliderValue);
       }
@@ -109,6 +109,16 @@ const Controls = (options: ControlsOptions) => {
     else changeTrack(1);
   }
 
+  const changeVolume = (e) => {
+    if(audioElement.current){
+      const volume = +e.target.value;
+      console.log(e, volume, audioElement.current.volume);
+      // e.target.innerHTML = e.value;
+      audioElement.current.volume = volume;
+      setPlayerState((s) => ({...s, volume: volume}));
+    }
+  }
+
   return playerState.track ? (<>
 
     <audio ref={audioElement} onTimeUpdate={updateProgress} onEnded={audioEnded}>
@@ -120,6 +130,13 @@ const Controls = (options: ControlsOptions) => {
       <button onClick={() => changeTrack(-1)}> <BiSkipPrevious /> </button>
       <button className="play-pause" onClick={togglePlayPause}> { playerState.isPlaying ? <BsPause /> : <BsPlay />}</button>
       <button onClick={() => changeTrack(1)}> <BiSkipNext /> </button>
+
+      <input 
+        type="range" min="0" max="1" step="0.05"
+        value={playerState.volume} 
+        className="volume-slider" 
+        onChange={changeVolume} />
+
     </div>
 
     <div className="progress" style={{ 'color': playerState.track.color[1] }}>
