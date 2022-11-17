@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { BsPause, BsPlay } from 'react-icons/bs';
 import { BiSkipPrevious, BiSkipNext } from 'react-icons/bi';
-import { ControlsOptions } from '../models/PlayerModels';
+import { ControlsOptions } from '../models';
 import './Controls.scss';
 import moment from 'moment';
 
@@ -24,7 +24,6 @@ const Controls = (options: ControlsOptions) => {
       setProgress(0);
       audioElement.current!.load();
       if(playerState.isPlaying) audioElement.current!.play();
-      console.log(audioElement.current!.duration);
       setPlayerState((s) => ({
         ...s, 
         track: options.track,
@@ -78,8 +77,8 @@ const Controls = (options: ControlsOptions) => {
   const seekAudio = (e) => {
     if(audioElement.current){
 
-      // calculate slider X positon by substracting slider's X position inside parent element from slider's parent X position
-      const sliderOffsetLeft = progressSlider.current.offsetParent.offsetLeft - progressSlider.current.offsetLeft;
+      // calculate slider X positon by summing slider's X position inside parent element from slider's parent X position
+      const sliderOffsetLeft = progressSlider.current.offsetParent.offsetLeft + progressSlider.current.offsetLeft;
       // calculate click position inside slider
       const fromBegining = e.clientX - sliderOffsetLeft;
       // get slider value (0, 1)

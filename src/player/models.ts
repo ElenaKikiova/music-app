@@ -3,25 +3,24 @@ export interface PlayerOptions {
   tracks: Track[];
 }
 
+export type TrackId = {
+  id: number | string;
+}
+
 export interface Track {
   name: string;
   audio: string;
   cover: string;
   artist: string;
-  color: ["#205950", "#2ab3bf"],
-  id: any,
+  color: string[],
+  id: TrackId,
   active: boolean
 }
 
 export interface TracksListOptions {
   list: Track[],
-  currentId: number,
-  onChangeTrack: (index: number) => void
-}
-
-export interface audioOptions {
-  audio: string;
-  playerState: PlayerState;
+  currentId: TrackId,
+  onChangeTrack: (id: TrackId) => void
 }
 
 export interface PlayerState {
@@ -30,10 +29,8 @@ export interface PlayerState {
 }
 export interface ControlsOptions {
   track: Track;
-
-  onChangeTrack: Function
+  onChangeTrack: (currentId: TrackId, move: number) => void
 }
-
 
 export interface ControlsState {
   isPlaying: boolean;

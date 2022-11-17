@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { TracksListOptions } from '../models/PlayerModels';
+import { TracksListOptions } from '../models';
 import './TracksList.scss';
 
 const TracksList = ({list, currentId, onChangeTrack}: TracksListOptions) => {

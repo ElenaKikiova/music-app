@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { INITIAL_PLAYER_STATE } from './constants';
 import Controls from './controls/Controls';
-import { PlayerOptions, Track } from './models/PlayerModels';
+import { PlayerOptions, Track, TrackId } from './models';
 import './Player.scss';
 import TracksList from './tracksList/TracksList';
 
@@ -20,9 +20,8 @@ function Player(options: PlayerOptions) {
   }
 
   // change track by finding it by id
-  const changeTrack = (id: number) => {
+  const changeTrack = (id: TrackId) => {
     const current = options.tracks.find((e) => e.id === id) as Track;
-    console.log(current);
     setPlayerState((s) => ({...s, isPlaying: false, currentTrack: current }))
   }
 
