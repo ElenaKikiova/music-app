@@ -10,7 +10,10 @@ const TracksList = ({list, currentId, onChangeTrack}: TracksListOptions) => {
       <h2>Tracks</h2>
       <div className="tracks">
         { list.map((e) => (
-          <div className={'track' + (e.id === currentId ? ' active' : '')}  key={e.audio} onClick={() => onChangeTrack(e.id)}>
+          <div 
+            className={'track' + (e.id === currentId ? ' active' : '')} 
+            key={e.audio} 
+            onClick={() => onChangeTrack(e.id)}>
             {e.name}
           </div>
         )) }

@@ -13,11 +13,13 @@ function Player(options: PlayerOptions) {
     currentTrack: options.tracks[0]
   });
 
+  // move -1 or +1 in the track list
   const getNextOrPreviousTrack = (currentId, move) => {
     const index = options.tracks.findIndex((e) => e.id === currentId) + move;
     if(options.tracks[index]) changeTrack(options.tracks[index].id);
   }
 
+  // change track by finding it by id
   const changeTrack = (id: number) => {
     const current = options.tracks.find((e) => e.id === id) as Track;
     console.log(current);
@@ -26,10 +28,25 @@ function Player(options: PlayerOptions) {
 
   return playerState.currentTrack ? (
     <div className="Player" style={{'width': options.width}}>
-      <TracksList list={options.tracks} currentId={playerState.currentTrack.id} onChangeTrack={(id) => changeTrack(id)}/>
-      <div className='Controls'>
+
+      <TracksList 
+        list={options.tracks}
+        currentId={playerState.currentTrack.id} onChangeTrack={(id) => changeTrack(id)}
+      />
+
+      <div className='controls'>
+
+        <div className='cover'>
+          <img src={playerState.currentTrack.cover} alt={playerState.currentTrack.name}/>
+        </div>
+
         <h2>{playerState.currentTrack.name}</h2>
-        <Controls track={playerState.currentTrack} onChangeTrack={(current, move) => getNextOrPreviousTrack(current, move)}/>
+
+        <Controls 
+          track={playerState.currentTrack} 
+          onChangeTrack={(current, move) => getNextOrPreviousTrack(current, move)}
+        />
+
       </div>
     </div>
   ) : <></>;

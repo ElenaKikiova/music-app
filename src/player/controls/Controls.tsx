@@ -18,6 +18,7 @@ const Controls = (options: ControlsOptions) => {
     duration: ''
   });
 
+  // change track info whenever another track is chosen
   useEffect(() => {
     if(options.track.id !== playerState.track.id && audioElement.current){
       setProgress(0);
@@ -32,6 +33,7 @@ const Controls = (options: ControlsOptions) => {
     }
   }, [options, playerState.isPlaying, playerState.track])
 
+  // play/pause player
   const togglePlayPause = () => {
     if(audioElement.current){
       if (playerState.isPlaying) {
@@ -44,12 +46,14 @@ const Controls = (options: ControlsOptions) => {
     setPlayerState((s) => ({ ...s, isPlaying: !s.isPlaying}));
   }
 
+  // convert seconds to string 'HH:mm:ss' format
   const getTime = (time) => {
     if(isNaN(time)) return '';
     const stringifiedTime = moment.utc(time*1000).format((time > 60*60 ? 'HH:' : '') + 'mm:ss')
     return stringifiedTime;
   }
 
+  // update silder with current audio time
   const updateProgress = () => {
     if(progressSlider.current && audioElement.current){
       setPlayerState((s) => ({
@@ -61,6 +65,7 @@ const Controls = (options: ControlsOptions) => {
     }
   }
 
+  // set audio time
   const setProgress = (sliderValue) => {
     if(audioElement.current){
       progressSlider.current.value = sliderValue;
@@ -69,38 +74,52 @@ const Controls = (options: ControlsOptions) => {
     }
   }
 
+  // change slider value and player time
   const seekAudio = (e) => {
     if(audioElement.current){
-      const fromBegining = e.clientX - progressSlider.current.offsetLeft;
+
+      // calculate slider X positon by substracting slider's X position inside parent element from slider's parent X position
+      const sliderOffsetLeft = progressSlider.current.offsetParent.offsetLeft - progressSlider.current.offsetLeft;
+      // calculate click position inside slider
+      const fromBegining = e.clientX - sliderOffsetLeft;
+      // get slider value (0, 1)
       const sliderValue = fromBegining / progressSlider.current.clientWidth;
+
       setProgress(sliderValue);
     }
   }
 
+  // emit event to Player component to change track
   const changeTrack = (move) => {
-    console.log(move, options);
     options.onChangeTrack(playerState.track.id, move);
   }
 
-  
   return playerState.track ? (<>
+
     <audio ref={audioElement} onTimeUpdate={updateProgress}>
       <source src={playerState.track.audio} type="audio/ogg" />
       <source src={playerState.track.audio} type="audio/mpeg" />
     </audio>
-    <div className='Actions'>
-      <button className="PreviousTrack" onClick={() => changeTrack(-1)}> <BiSkipPrevious /> </button>
-      <button className="PlayPause" onClick={togglePlayPause}> { playerState.isPlaying ? <BsPause /> : <BsPlay />}</button>
-      <button className="NextTrack" onClick={() => changeTrack(1)}> <BiSkipNext /> </button>
+
+    <div className='actions' style={{ 'color': playerState.track.color[1] }}>
+      <button onClick={() => changeTrack(-1)}> <BiSkipPrevious /> </button>
+      <button className="play-pause" onClick={togglePlayPause}> { playerState.isPlaying ? <BsPause /> : <BsPlay />}</button>
+      <button onClick={() => changeTrack(1)}> <BiSkipNext /> </button>
     </div>
 
-    <div className="Progress">
+    <div className="progress" style={{ 'color': playerState.track.color[1] }}>
       <span className='current-time'>{playerState.currentTime || '00:00'}</span>
-      <progress className='progress-slider' value="0" max="1" ref={progressSlider} onClick={seekAudio} />
+      <progress 
+        className='progress-slider'
+        value="0" max="1"
+        ref={progressSlider}
+        onClick={seekAudio}
+        style={{ 'background': playerState.track.color[1], '--progress-value-color': playerState.track.color[1] } as React.CSSProperties}
+      />
       <span className='duration'>{playerState.duration || '00:00'}</span>
     </div>
 
-    </>) : <></>
+  </>) : <></>
 }
 
 export default Controls;

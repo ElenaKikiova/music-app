@@ -2,7 +2,7 @@
 
 .TracksList {
   width: 25%;
-  min-width: 120px;
+  min-width: 200px;
   padding-bottom: 1rem;
   background-color: theme.$track-list-background;
 
@@ -20,6 +20,10 @@
 
       &.active {
         background-color: theme.$track-list-active-background;
+      }
+
+      &:hover {
+        color: theme.$text-hover-color;
       }
     }
 

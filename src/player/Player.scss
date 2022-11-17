@@ -7,11 +7,12 @@
   background-color: theme.$background;
   color: theme.$text-color;
 
-  .Controls {
+  .controls {
     flex-grow: 1;
 
     h2 {
       text-align: center;
+      margin: 0.75rem 0 0.5rem;
     }
   }
 }

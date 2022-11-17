@@ -1,42 +1,74 @@
 @use '../themes/dark.scss' as theme;
 
-
+.cover {
+  img {
+    width: 100%;
+  }
+}
 
 button {
   background-color: transparent;
   border: 0px;
   cursor: pointer;
   padding: 0.75rem;
-  color: theme.$text-color;
-  font-size: 1.5rem;
+  color: inherit;
+  font-size: 2rem;
   line-height: 0;
+  transition: 0.2s linear;
+
+  &:hover {
+    filter: brightness(150%);
+  }
 }
 
-.Actions {
+.actions {
   display: flex;
   justify-content: center;
   
-  .PlayPause {
-    background-color: transparent;
-    border: 0px;
-    cursor: pointer;
-    padding: 0.75rem;
-    color: theme.$text-color;
-    font-size: 1.5rem;
-    line-height: 0;
+  .play-pause {
+    font-size: 2.5rem;
   }
 }
 
-
-.Progress {
+.progress {
   display: flex;
-  margin: 0.5rem;
+  margin: 0 0.5rem 1rem 0.5rem;
   align-items: center;
+  filter: brightness(150%);
+
+  .current-time, .duration {
+    filter: brightness(150%);
+  }
 
   .progress-slider{
     flex-grow: 1;
-    margin: 0 0.25rem;
-  }
+    margin: 0 0.5rem;
+    height: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+         appearance: none;
 
+
+    &::-webkit-progress-bar {
+      background-color: theme.$progress-background-color;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+    }
+  
+    &::-webkit-progress-value {
+      // background-color: theme.$progress-value-color;  
+      // background: inherit;
+      border-radius: 5px;
+      background-color: var(--progress-value-color);
+    }
+
+    &::-moz-progress-bar { 
+      // background-color: theme.$progress-value-color;
+      background: inherit;
+    }
+    
+  }
 
 }
