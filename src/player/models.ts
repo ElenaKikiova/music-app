@@ -1,3 +1,5 @@
+import { THEMES } from "./constants";
+
 export interface PlayerOptions {
   width: number;
   tracks: Track[];
@@ -25,6 +27,7 @@ export interface TracksListOptions {
 
 export interface PlayerState {
   isPlaying: boolean;
+  theme: THEMES;
   currentTrack: Track | null;
 }
 export interface ControlsOptions {

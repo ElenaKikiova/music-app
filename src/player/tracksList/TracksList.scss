@@ -1,14 +1,12 @@
 @use '../themes/dark.scss' as theme;
 
 .TracksList {
-  width: 25%;
-  min-width: 200px;
+  width: 100%;
   padding-bottom: 1rem;
-  background-color: theme.$track-list-background;
 
   h2{
-    margin: 1rem 0 0.5rem 0;
-    padding: 0 1rem;
+    margin: 0;
+    padding: 1rem 1rem 0.5rem 1rem;
   }
 
   .tracks {

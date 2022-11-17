@@ -25,13 +25,26 @@ function Player(options: PlayerOptions) {
     setPlayerState((s) => ({...s, isPlaying: false, currentTrack: current }))
   }
 
+  const toggleTheme = () => {
+    console.log(playerState.theme);
+  }
+
   return playerState.currentTrack ? (
     <div className="Player" style={{'width': options.width}}>
 
-      <TracksList 
-        list={options.tracks}
-        currentId={playerState.currentTrack.id} onChangeTrack={(id) => changeTrack(id)}
-      />
+      <div className='sidebar'>
+
+        <TracksList 
+          list={options.tracks}
+          currentId={playerState.currentTrack.id}
+          onChangeTrack={(id) => changeTrack(id)}
+        />
+
+        <div className='buttons'>
+          <button className='toggle-theme' onClick={toggleTheme}>a</button>
+        </div>
+
+      </div>
 
       <div className='controls'>
 
@@ -40,6 +53,7 @@ function Player(options: PlayerOptions) {
         </div>
 
         <h2>{playerState.currentTrack.name}</h2>
+        <h5>{playerState.currentTrack.artist}</h5>
 
         <Controls 
           track={playerState.currentTrack} 
