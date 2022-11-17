@@ -1,7 +1,6 @@
-import { THEMES } from "./constants";
-
 export interface PlayerOptions {
-  width: number;
+  width?: number | string;
+  height?: number | string;
   tracks: Track[];
 }
 

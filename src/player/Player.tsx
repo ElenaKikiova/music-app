@@ -6,12 +6,15 @@ import { PlayerOptions, Track, TrackId } from './models';
 import './Player.scss';
 import TracksList from './tracksList/TracksList';
 import { MdDarkMode, MdLightMode, MdOutlineRepeat, MdOutlineRepeatOne} from 'react-icons/md';
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 function Player(options: PlayerOptions) {
 
+  const [showSidebar, setShowSidebar] = useState<boolean>(true);
+
   const [playerState, setPlayerState] = useState({
     ...INITIAL_PLAYER_STATE,
-    currentTrack: options.tracks[0]
+    currentTrack: options.tracks[0],
   });
 
   // move -1 or +1 in the track list
@@ -26,21 +29,33 @@ function Player(options: PlayerOptions) {
     setPlayerState((s) => ({...s, isPlaying: false, currentTrack: current }))
   }
 
+  // toggle dark/light theme
   const toggleTheme = () => {
     console.log(playerState.theme);
     setPlayerState((s) => ({...s, theme: playerState.theme === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK}));
   }
 
+  // toggle repeat audio
   const toggleRepeat = () => {
     console.log(playerState.repeat);
     setPlayerState((s) => ({...s, repeat: playerState.repeat === REPEAT.NEXT ? REPEAT.LOOP : REPEAT.NEXT}));
   }
 
+  // toggle show/hide sidebar
+  const toggleSidebar = () => {
+    setShowSidebar((s) => !s);
+    console.log(showSidebar);
+  }
+
   return playerState.currentTrack ? (
     <div className={'theme-' +  playerState.theme}>
-      <div className="Player" style={{'width': options.width }}>
+      <div className="Player" style={{'width': options.width ?? options.height, 'height': options.height ?? options.width}}>
+        
+        <button className='toggle-sidebar' onClick={toggleSidebar} title="Toggle sidebar">
+          <GiHamburgerMenu />
+        </button>
 
-        <div className='sidebar'>
+        <div className={'sidebar ' + (showSidebar ? 'show' : 'hide')}>
 
           <TracksList 
             list={options.tracks}
@@ -61,18 +76,19 @@ function Player(options: PlayerOptions) {
 
         <div className='controls'>
 
-          <div className='cover'>
-            <img src={playerState.currentTrack.cover} alt={playerState.currentTrack.name}/>
+          <div className='cover' style={{ 'backgroundImage': 'url(' + playerState.currentTrack.cover + ')' }}></div>
+
+          <div className='info'>
+
+            <h2>{playerState.currentTrack.name}</h2>
+            <h5>{playerState.currentTrack.artist}</h5>
+
+            <Controls 
+              repeat={playerState.repeat}
+              track={playerState.currentTrack} 
+              onChangeTrack={(current, move) => getNextOrPreviousTrack(current, move)}
+            />
           </div>
-
-          <h2>{playerState.currentTrack.name}</h2>
-          <h5>{playerState.currentTrack.artist}</h5>
-
-          <Controls 
-            repeat={playerState.repeat}
-            track={playerState.currentTrack} 
-            onChangeTrack={(current, move) => getNextOrPreviousTrack(current, move)}
-          />
 
         </div>
       </div>

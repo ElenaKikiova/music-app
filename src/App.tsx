@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <Player 
-        width={900}
+        height={800} width={840}
         tracks={tracks} />
     </div>
   );
