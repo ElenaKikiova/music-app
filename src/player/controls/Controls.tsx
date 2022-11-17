@@ -5,6 +5,7 @@ import { BiSkipPrevious, BiSkipNext } from 'react-icons/bi';
 import { ControlsOptions } from '../models';
 import './Controls.scss';
 import moment from 'moment';
+import { REPEAT } from '../constants';
 
 const Controls = (options: ControlsOptions) => {
 
@@ -77,14 +78,23 @@ const Controls = (options: ControlsOptions) => {
   const seekAudio = (e) => {
     if(audioElement.current){
 
-      // calculate slider X positon by summing slider's X position inside parent element from slider's parent X position
-      const sliderOffsetLeft = progressSlider.current.offsetParent.offsetLeft + progressSlider.current.offsetLeft;
-      // calculate click position inside slider
-      const fromBegining = e.clientX - sliderOffsetLeft;
-      // get slider value (0, 1)
-      const sliderValue = fromBegining / progressSlider.current.clientWidth;
+      // if audio seek is programatic
+      if(typeof e === 'number') {
+        setProgress(0);
+        audioElement.current.play();
+      }
+      else {
+        // audio seek occured because user clicked on slider
 
-      setProgress(sliderValue);
+        // calculate slider X positon by summing slider's X position inside parent element from slider's parent X position
+        const sliderOffsetLeft = progressSlider.current.offsetParent.offsetLeft + progressSlider.current.offsetLeft;
+        // calculate click position inside slider
+        const fromBegining = e.clientX - sliderOffsetLeft;
+        // get slider value (0, 1)
+        const sliderValue = fromBegining / progressSlider.current.clientWidth;
+
+        setProgress(sliderValue);
+      }
     }
   }
 
@@ -93,9 +103,15 @@ const Controls = (options: ControlsOptions) => {
     options.onChangeTrack(playerState.track.id, move);
   }
 
+  // determine weather to loop audio or go to next track
+  const audioEnded = () => {
+    if(options.repeat === REPEAT.LOOP) seekAudio(1);
+    else changeTrack(1);
+  }
+
   return playerState.track ? (<>
 
-    <audio ref={audioElement} onTimeUpdate={updateProgress}>
+    <audio ref={audioElement} onTimeUpdate={updateProgress} onEnded={audioEnded}>
       <source src={playerState.track.audio} type="audio/ogg" />
       <source src={playerState.track.audio} type="audio/mpeg" />
     </audio>

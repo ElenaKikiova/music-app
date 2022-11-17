@@ -1,11 +1,11 @@
 
 import React, { CSSProperties, useEffect, useState } from 'react';
-import { INITIAL_PLAYER_STATE, THEMES } from './constants';
+import { INITIAL_PLAYER_STATE, REPEAT, THEMES } from './constants';
 import Controls from './controls/Controls';
 import { PlayerOptions, Track, TrackId } from './models';
 import './Player.scss';
 import TracksList from './tracksList/TracksList';
-import { MdDarkMode, MdLightMode} from 'react-icons/md';
+import { MdDarkMode, MdLightMode, MdOutlineRepeat, MdOutlineRepeatOne} from 'react-icons/md';
 
 function Player(options: PlayerOptions) {
 
@@ -31,6 +31,11 @@ function Player(options: PlayerOptions) {
     setPlayerState((s) => ({...s, theme: playerState.theme === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK}));
   }
 
+  const toggleRepeat = () => {
+    console.log(playerState.repeat);
+    setPlayerState((s) => ({...s, repeat: playerState.repeat === REPEAT.NEXT ? REPEAT.LOOP : REPEAT.NEXT}));
+  }
+
   return playerState.currentTrack ? (
     <div className={'theme-' +  playerState.theme}>
       <div className="Player" style={{'width': options.width }}>
@@ -44,8 +49,11 @@ function Player(options: PlayerOptions) {
           />
 
           <div className='buttons'>
-            <button className='toggle-theme' onClick={toggleTheme}>
+            <button className='toggle-theme' onClick={toggleTheme} title="Change theme">
               {playerState.theme === THEMES.LIGHT ? <MdDarkMode /> : <MdLightMode />}
+            </button>
+            <button className='toggle-repeat' onClick={toggleRepeat} title="Repeat">
+              {playerState.repeat === REPEAT.NEXT ? <MdOutlineRepeat /> : <MdOutlineRepeatOne />}
             </button>
           </div>
 
@@ -61,6 +69,7 @@ function Player(options: PlayerOptions) {
           <h5>{playerState.currentTrack.artist}</h5>
 
           <Controls 
+            repeat={playerState.repeat}
             track={playerState.currentTrack} 
             onChangeTrack={(current, move) => getNextOrPreviousTrack(current, move)}
           />

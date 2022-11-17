@@ -29,9 +29,11 @@ export interface PlayerState {
   isPlaying: boolean;
   theme: string;
   currentTrack: Track | null;
+  repeat: string;
 }
 export interface ControlsOptions {
   track: Track;
+  repeat: string;
   onChangeTrack: (currentId: TrackId, move: number) => void
 }
 

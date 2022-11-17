@@ -1,7 +1,7 @@
 
 import React from 'react';
 import './App.scss';
-import { Track } from './player/models/PlayerModels';
+import { Track } from './player/models';
 import Player from './player/Player';
 
 import chillHop from './tracks';
@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <Player 
-        width={800}
+        width={900}
         tracks={tracks} />
     </div>
   );

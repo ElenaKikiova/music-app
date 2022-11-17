@@ -17,9 +17,9 @@ button {
   line-height: 0;
   transition: 0.2s linear;
 
-  // &:hover {
-  //   filter: brightness(150%);
-  // }
+  &.toggle-repeat{
+    font-size: 1.6rem;
+  }
 }
 
 .Player {
@@ -41,6 +41,8 @@ button {
     .buttons {
       position: absolute;
       bottom: 0;
+      display: flex;
+      padding: 0.5rem;
     }
   }
 
