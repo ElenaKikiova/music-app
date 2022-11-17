@@ -1,10 +1,12 @@
-$background: #333;
-$track-list-background: #444;
-$track-list-active-background: #555;
-$text-color: #fff;
+$dark: (
+  background: #333,
+  track-list-background: #444,
+  track-list-active-background: #555,
+  text-color: #fff,
 
-$button-hover-color: #18a6ad;
-$text-hover-color: #78d5da;
+  button-hover-color: #18a6ad,
+  text-hover-color: #78d5da,
 
-$progress-background-color: #fff;
-$progress-value-color: #18a6ad;
+  progress-background-color: #a8a5a5,
+  progress-value-color: #18a6ad,
+)

@@ -1,6 +1,6 @@
 
-import React, { useEffect, useState } from 'react';
-import { INITIAL_PLAYER_STATE } from './constants';
+import React, { CSSProperties, useEffect, useState } from 'react';
+import { INITIAL_PLAYER_STATE, THEMES } from './constants';
 import Controls from './controls/Controls';
 import { PlayerOptions, Track, TrackId } from './models';
 import './Player.scss';
@@ -27,39 +27,42 @@ function Player(options: PlayerOptions) {
 
   const toggleTheme = () => {
     console.log(playerState.theme);
+    setPlayerState((s) => ({...s, theme: playerState.theme === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK}));
   }
 
   return playerState.currentTrack ? (
-    <div className="Player" style={{'width': options.width}}>
+    <div className={'theme-' +  playerState.theme}>
+      <div className="Player" style={{'width': options.width }}>
 
-      <div className='sidebar'>
+        <div className='sidebar'>
 
-        <TracksList 
-          list={options.tracks}
-          currentId={playerState.currentTrack.id}
-          onChangeTrack={(id) => changeTrack(id)}
-        />
+          <TracksList 
+            list={options.tracks}
+            currentId={playerState.currentTrack.id}
+            onChangeTrack={(id) => changeTrack(id)}
+          />
 
-        <div className='buttons'>
-          <button className='toggle-theme' onClick={toggleTheme}>a</button>
+          <div className='buttons'>
+            <button className='toggle-theme' onClick={toggleTheme}>a</button>
+          </div>
+
         </div>
 
-      </div>
+        <div className='controls'>
 
-      <div className='controls'>
+          <div className='cover'>
+            <img src={playerState.currentTrack.cover} alt={playerState.currentTrack.name}/>
+          </div>
 
-        <div className='cover'>
-          <img src={playerState.currentTrack.cover} alt={playerState.currentTrack.name}/>
+          <h2>{playerState.currentTrack.name}</h2>
+          <h5>{playerState.currentTrack.artist}</h5>
+
+          <Controls 
+            track={playerState.currentTrack} 
+            onChangeTrack={(current, move) => getNextOrPreviousTrack(current, move)}
+          />
+
         </div>
-
-        <h2>{playerState.currentTrack.name}</h2>
-        <h5>{playerState.currentTrack.artist}</h5>
-
-        <Controls 
-          track={playerState.currentTrack} 
-          onChangeTrack={(current, move) => getNextOrPreviousTrack(current, move)}
-        />
-
       </div>
     </div>
   ) : <></>;

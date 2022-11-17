@@ -1,4 +1,9 @@
-@use '../themes/dark.scss' as theme;
+@use '../themes/themes.scss' as themes;
+
+body {
+  @include themes.themed('track.active', 'background-color', 'track-list-active-background');
+  @include themes.themed('track:hover', 'color', 'text-hover-color');
+}
 
 .TracksList {
   width: 100%;
@@ -15,16 +20,6 @@
       width: 100%;
       padding: 0.5rem 1rem;
       cursor: pointer;
-
-      &.active {
-        background-color: theme.$track-list-active-background;
-      }
-
-      &:hover {
-        color: theme.$text-hover-color;
-      }
-    }
-
-    
+    }    
   }
 }

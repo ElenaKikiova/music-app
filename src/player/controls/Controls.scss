@@ -1,4 +1,10 @@
-@use '../themes/dark.scss' as theme;
+
+@use '../themes/themes.scss' as themes;
+
+body {
+  @include themes.themed('progress-slider::-webkit-progress-bar', 'background-color', 'progress-background-color');
+}
+
 
 .cover {
   img {
@@ -52,20 +58,16 @@ button {
 
 
     &::-webkit-progress-bar {
-      background-color: theme.$progress-background-color;
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
     }
   
     &::-webkit-progress-value {
-      // background-color: theme.$progress-value-color;  
-      // background: inherit;
       border-radius: 5px;
       background-color: var(--progress-value-color);
     }
 
     &::-moz-progress-bar { 
-      // background-color: theme.$progress-value-color;
       background: inherit;
     }
     

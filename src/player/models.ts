@@ -27,7 +27,7 @@ export interface TracksListOptions {
 
 export interface PlayerState {
   isPlaying: boolean;
-  theme: THEMES;
+  theme: string;
   currentTrack: Track | null;
 }
 export interface ControlsOptions {

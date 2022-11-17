@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import { BsPause, BsPlay } from 'react-icons/bs';
 import { BiSkipPrevious, BiSkipNext } from 'react-icons/bi';
 import { ControlsOptions } from '../models';
@@ -113,7 +113,7 @@ const Controls = (options: ControlsOptions) => {
         value="0" max="1"
         ref={progressSlider}
         onClick={seekAudio}
-        style={{ 'background': playerState.track.color[1], '--progress-value-color': playerState.track.color[1] } as React.CSSProperties}
+        style={{ 'background': playerState.track.color[1], '--progress-value-color': playerState.track.color[1] } as CSSProperties}
       />
       <span className='duration'>{playerState.duration || '00:00'}</span>
     </div>

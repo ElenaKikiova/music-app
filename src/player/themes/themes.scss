@@ -1,0 +1,15 @@
+@use '../themes/light.scss' as light-theme;
+@use '../themes/dark.scss' as dark-theme;
+
+$themes: (
+  light: light-theme.$light,
+  dark: dark-theme.$dark
+);
+
+@mixin themed($class, $key, $color) {
+  @each $theme-name, $theme-colors in $themes {
+    .theme-#{$theme-name} .#{$class} {
+      #{$key}: map-get(map-get($themes, $theme-name), $color)
+    }
+  }
+}

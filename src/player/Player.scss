@@ -1,17 +1,21 @@
-@use './themes/dark.scss' as theme;
+@use './themes/themes.scss' as themes;
+
+body {
+  @include themes.themed('Player', 'color', 'text-color');
+  @include themes.themed('Player', 'background-color', 'background');
+  @include themes.themed('sidebar', 'background-color', 'track-list-background');
+}
 
 .Player {
   display: flex;
   width: 100%;
 
-  background-color: theme.$background;
-  color: theme.$text-color;
+  $theme-name: 'light';
 
   .sidebar {
     position: relative;
     width: 25%;
     min-width: 200px;
-    background-color: theme.$track-list-background;
 
     .TracksList {
       position: absolute;
