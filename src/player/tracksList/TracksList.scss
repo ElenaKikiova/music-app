@@ -1,8 +1,8 @@
 @use '../themes/themes.scss' as themes;
 
 body {
-  @include themes.themed('track.active', 'background-color', 'track-list-active-background');
-  @include themes.themed('track:hover', 'color', 'text-hover-color');
+  @include themes.themed('.track.active', 'background-color', 'track-list-active-background');
+  @include themes.themed('.track:hover', 'color', 'text-hover-color');
 }
 
 .TracksList {

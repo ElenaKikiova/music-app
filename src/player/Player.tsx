@@ -5,6 +5,7 @@ import Controls from './controls/Controls';
 import { PlayerOptions, Track, TrackId } from './models';
 import './Player.scss';
 import TracksList from './tracksList/TracksList';
+import { MdDarkMode, MdLightMode} from 'react-icons/md';
 
 function Player(options: PlayerOptions) {
 
@@ -43,7 +44,9 @@ function Player(options: PlayerOptions) {
           />
 
           <div className='buttons'>
-            <button className='toggle-theme' onClick={toggleTheme}>a</button>
+            <button className='toggle-theme' onClick={toggleTheme}>
+              {playerState.theme === THEMES.LIGHT ? <MdDarkMode /> : <MdLightMode />}
+            </button>
           </div>
 
         </div>

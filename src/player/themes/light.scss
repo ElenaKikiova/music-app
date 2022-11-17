@@ -7,6 +7,9 @@ $light: (
   button-hover-color: #0f5f63,
   text-hover-color: #03aab3,
 
-  progress-background-color: #999,
-  progress-value-color: #093f42
+  progress-background-color: #fff,
+  progress-value-color: #093f42,
+
+  hover-filter: brightness(120%),
+  readability-filter: brightness(85%)
 )

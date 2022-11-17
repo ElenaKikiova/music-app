@@ -2,9 +2,10 @@
 @use '../themes/themes.scss' as themes;
 
 body {
-  @include themes.themed('progress-slider::-webkit-progress-bar', 'background-color', 'progress-background-color');
+  @include themes.themed('.progress-slider::-webkit-progress-bar', 'background-color', 'progress-background-color');
+  @include themes.themed('.progress', 'filter', 'readability-filter');
+  @include themes.themed('.current-time, .duration', 'filter', 'readability-filter')
 }
-
 
 .cover {
   img {
@@ -12,24 +13,14 @@ body {
   }
 }
 
-button {
-  background-color: transparent;
-  border: 0px;
-  cursor: pointer;
-  padding: 0.75rem;
-  color: inherit;
-  font-size: 2rem;
-  line-height: 0;
-  transition: 0.2s linear;
-
-  &:hover {
-    filter: brightness(150%);
-  }
-}
-
 .actions {
   display: flex;
   justify-content: center;
+  
+  button {
+    padding: 0.75rem;
+    font-size: 2rem;
+  }
   
   .play-pause {
     font-size: 2.5rem;
@@ -39,13 +30,8 @@ button {
 .progress {
   display: flex;
   margin: 0 0.5rem 1rem 0.5rem;
-  align-items: center;
-  filter: brightness(150%);
-
-  .current-time, .duration {
-    filter: brightness(150%);
-  }
-
+  align-items: center;  
+  
   .progress-slider{
     flex-grow: 1;
     margin: 0 0.5rem;

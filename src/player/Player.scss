@@ -1,9 +1,25 @@
 @use './themes/themes.scss' as themes;
 
 body {
-  @include themes.themed('Player', 'color', 'text-color');
-  @include themes.themed('Player', 'background-color', 'background');
-  @include themes.themed('sidebar', 'background-color', 'track-list-background');
+  @include themes.themed('.Player', 'color', 'text-color');
+  @include themes.themed('.Player', 'background-color', 'background');
+  @include themes.themed('.sidebar', 'background-color', 'track-list-background');
+  @include themes.themed('button:hover', 'filter', 'hover-filter');
+}
+
+button {
+  background-color: transparent;
+  border: 0px;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: inherit;
+  font-size: 1.5rem;
+  line-height: 0;
+  transition: 0.2s linear;
+
+  // &:hover {
+  //   filter: brightness(150%);
+  // }
 }
 
 .Player {

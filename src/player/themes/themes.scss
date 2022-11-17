@@ -6,9 +6,9 @@ $themes: (
   dark: dark-theme.$dark
 );
 
-@mixin themed($class, $key, $color) {
+@mixin themed($selector, $key, $color) {
   @each $theme-name, $theme-colors in $themes {
-    .theme-#{$theme-name} .#{$class} {
+    .theme-#{$theme-name} #{$selector} {
       #{$key}: map-get(map-get($themes, $theme-name), $color)
     }
   }
