@@ -32,6 +32,7 @@ export interface PlayerState {
   volume: number;
   currentTime: string;
   duration: string;
+  muted: boolean,
 }
 export interface ControlsOptions {
   track: Track;

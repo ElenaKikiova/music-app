@@ -10,5 +10,6 @@ export const INITIAL_PLAYER_STATE: PlayerState = {
   volume: 0.75,
   repeat: REPEAT.NEXT,
   currentTime: '',
-  duration: ''
+  duration: '',
+  muted: false
 }

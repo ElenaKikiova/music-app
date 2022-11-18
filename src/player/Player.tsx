@@ -31,20 +31,17 @@ function Player(options: PlayerOptions) {
 
   // toggle dark/light theme
   const toggleTheme = () => {
-    console.log(playerState.theme);
     setPlayerState((s) => ({...s, theme: playerState.theme === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK}));
   }
 
   // toggle repeat audio
   const toggleRepeat = () => {
-    console.log(playerState.repeat);
     setPlayerState((s) => ({...s, repeat: playerState.repeat === REPEAT.NEXT ? REPEAT.LOOP : REPEAT.NEXT}));
   }
 
   // toggle show/hide sidebar
   const toggleSidebar = () => {
     setShowSidebar((s) => !s);
-    console.log(showSidebar);
   }
 
   return playerState.currentTrack ? (

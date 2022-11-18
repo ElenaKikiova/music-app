@@ -1,6 +1,6 @@
 
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
-import { BsPause, BsPlay } from 'react-icons/bs';
+import { BsPause, BsPlay, BsVolumeUpFill, BsVolumeMuteFill } from 'react-icons/bs';
 import { BiSkipPrevious, BiSkipNext } from 'react-icons/bi';
 import { ControlsOptions } from '../models';
 import './Controls.scss';
@@ -91,8 +91,6 @@ const Controls = (options: ControlsOptions) => {
         // get slider value (0, 1)
         const sliderValue = fromBegining / progressSlider.current.clientWidth;
 
-        console.log(sliderOffsetLeft, e.clientX, fromBegining, progressSlider.current.offsetLeft, sliderValue)
-
         setProgress(sliderValue);
       }
     }
@@ -112,10 +110,21 @@ const Controls = (options: ControlsOptions) => {
   const changeVolume = (e) => {
     if(audioElement.current){
       const volume = +e.target.value;
-      console.log(e, volume, audioElement.current.volume);
-      // e.target.innerHTML = e.value;
       audioElement.current.volume = volume;
+      const min = e.target.min
+      const max = e.target.max
+      const val = e.target.value
+
+      e.target.style.backgroundSize = (val - min) * 100 / (max - min) + '% 100%'
+      
       setPlayerState((s) => ({...s, volume: volume}));
+    }
+  }
+
+  const toggleMute = () => {
+    if(audioElement.current){
+      audioElement.current.muted = !playerState.muted;
+      setPlayerState((s) => ({...s, muted: !s.muted}));
     }
   }
 
@@ -126,17 +135,11 @@ const Controls = (options: ControlsOptions) => {
       <source src={playerState.track.audio} type="audio/mpeg" />
     </audio>
 
+
     <div className='actions' style={{ 'color': playerState.track.color[1] }}>
       <button onClick={() => changeTrack(-1)}> <BiSkipPrevious /> </button>
       <button className="play-pause" onClick={togglePlayPause}> { playerState.isPlaying ? <BsPause /> : <BsPlay />}</button>
       <button onClick={() => changeTrack(1)}> <BiSkipNext /> </button>
-
-      <input 
-        type="range" min="0" max="1" step="0.05"
-        value={playerState.volume} 
-        className="volume-slider" 
-        onChange={changeVolume} />
-
     </div>
 
     <div className="progress" style={{ 'color': playerState.track.color[1] }}>
@@ -149,6 +152,21 @@ const Controls = (options: ControlsOptions) => {
         style={{ 'background': playerState.track.color[1], '--progress-value-color': playerState.track.color[1] } as CSSProperties}
       />
       <span className='duration'>{playerState.duration || '00:00'}</span>
+
+      <div className='volume'>
+        <input 
+            type="range" min="0" max="1" step="0.05"
+            value={playerState.volume} 
+            className="volume-slider" 
+            style={{'--progress-value-color': playerState.track.color[1] } as CSSProperties}
+            onChange={changeVolume} />
+
+          <button onClick={toggleMute}>
+            { playerState.muted ? <BsVolumeMuteFill /> : <BsVolumeUpFill />}
+          </button>
+        
+      </div>
+
     </div>
 
   </>) : <></>
