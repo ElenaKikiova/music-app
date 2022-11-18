@@ -111,6 +111,8 @@ const Controls = (options: ControlsOptions) => {
     if(audioElement.current){
       const volume = +e.target.value;
       audioElement.current.volume = volume;
+
+      // calculate background size for volume slider
       const min = e.target.min
       const max = e.target.max
       const val = e.target.value
@@ -161,7 +163,7 @@ const Controls = (options: ControlsOptions) => {
             style={{'--progress-value-color': playerState.track.color[1] } as CSSProperties}
             onChange={changeVolume} />
 
-          <button onClick={toggleMute}>
+          <button onClick={toggleMute} title="Toggle mute">
             { playerState.muted ? <BsVolumeMuteFill /> : <BsVolumeUpFill />}
           </button>
         
